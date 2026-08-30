@@ -138,57 +138,6 @@ payment-transaction-analytics/
 ├── requirements.txt
 ├── .env.example
 └── .gitignore
-```
-
----
-
-## 🚀 Quickstart
-
-### Option A — Zero-setup (SQLite, recommended for first run)
-
-```bash
-git clone <your-fork-url>
-cd payment-transaction-analytics
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-
-# 1. Generate 1.2M synthetic transactions (~12 seconds)
-python data/generate_transactions.py --rows 1200000
-
-# 2. Load into SQLite database (~30 seconds)
-python -m src.database load
-
-# 3. Launch the dashboard
-streamlit run streamlit_app.py
-```
-
-Open <http://localhost:8501>.
-
-### Option B — PostgreSQL via Docker
-
-```bash
-# Start Postgres 16 in a container
-docker compose up -d
-
-# Point the app at Postgres
-cp .env.example .env
-# Edit .env: DATABASE_URL=postgresql+psycopg2://analytics:analytics@localhost:5432/payments
-
-# Generate + load + run
-python data/generate_transactions.py --rows 1200000
-python -m src.database load
-streamlit run streamlit_app.py
-```
-
-### Option C — Streamlit Community Cloud
-
-1. Push the repo to GitHub.
-2. Go to <https://share.streamlit.io> and connect the repo.
-3. Set the main file path to `streamlit_app.py`.
-4. Add `DATABASE_URL` to Streamlit secrets (use [Neon](https://neon.tech) or [Supabase](https://supabase.com) free tier).
-5. Deploy.
-
----
 
 ## 📐 KPI definitions
 
