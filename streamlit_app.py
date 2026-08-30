@@ -190,8 +190,21 @@ with st.sidebar:
     else:
         st.warning("⚠ Database not loaded")
         if st.button("Load data into DB", width="stretch"):
-            with st.spinner("Loading 1.2M transactions into DB..."):
-                from src.database import load_parquet_to_db
+            from pathlib import Path
+            from src.database import DATA_DIR, load_parquet_to_db
+
+            transactions_path = DATA_DIR / "transactions.parquet"
+            merchants_path = DATA_DIR / "merchants.parquet"
+
+            if not transactions_path.exists() or not merchants_path.exists():
+                with st.spinner("First run: generating 1.2M synthetic transactions (~30-60s)..."):
+                    from data.generate_transactions import generate
+                    df, merchants = generate(rows=1_200_000, start="2025-01-01", end="2025-12-31", seed=42)
+                    DATA_DIR.mkdir(parents=True, exist_ok=True)
+                    df.to_parquet(transactions_path, index=False)
+                    merchants.to_parquet(merchants_path, index=False)
+
+            with st.spinner("Loading transactions into DB..."):
                 load_parquet_to_db()
             st.rerun()
 
