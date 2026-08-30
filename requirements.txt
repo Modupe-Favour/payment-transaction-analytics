@@ -15,7 +15,10 @@ plotly>=5.22
 jupyterlab>=4.2
 matplotlib>=3.8
 seaborn>=0.13
-ydata-profiling>=4.10       # optional — for automated EDA report
+# ydata-profiling removed — unused by streamlit_app.py and its numba/llvmlite
+# dependency chain doesn't yet support the Python version Streamlit Cloud uses.
+# If you want it for local Jupyter EDA, install it separately in a dev-only
+# environment: pip install ydata-profiling>=4.10
 
 # Utils
 python-dotenv>=1.0
