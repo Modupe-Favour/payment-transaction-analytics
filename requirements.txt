@@ -1,0 +1,22 @@
+# --- Payment Transaction Analytics — dependencies ---
+# Core data
+pandas>=2.2
+numpy>=1.26
+
+# Database (SQLAlchemy is DB-agnostic: works with SQLite locally + PostgreSQL in prod)
+SQLAlchemy>=2.0
+psycopg2-binary>=2.9        # PostgreSQL driver (for docker-compose / cloud Postgres)
+
+# Dashboard
+streamlit>=1.36
+plotly>=5.22
+
+# Notebook EDA
+jupyterlab>=4.2
+matplotlib>=3.8
+seaborn>=0.13
+ydata-profiling>=4.10       # optional — for automated EDA report
+
+# Utils
+python-dotenv>=1.0
+tqdm>=4.66

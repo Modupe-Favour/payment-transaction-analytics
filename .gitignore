@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Virtual envs
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Environment / secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Data artifacts (regenerate via `python data/generate_transactions.py`)
+data/*.db
+data/*.csv
+data/*.parquet
+data/raw/
+data/processed/
+!data/.gitkeep
+!data/generate_transactions.py
+!data/README.md
+
+# Logs
+*.log
+logs/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+Thumbs.db

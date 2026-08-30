@@ -1,0 +1,31 @@
+version: "3.9"
+
+# Local PostgreSQL for development.
+# For Streamlit Cloud deployment, use Neon / Supabase free tier instead —
+# see README.md "Deployment" section.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: payments_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: analytics
+      POSTGRES_PASSWORD: analytics
+      POSTGRES_DB: payments
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - payments_data:/var/lib/postgresql/data
+      - ./sql/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./sql/02_indexes.sql:/docker-entrypoint-initdb.d/02_indexes.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analytics -d payments"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  payments_data:
+    driver: local
